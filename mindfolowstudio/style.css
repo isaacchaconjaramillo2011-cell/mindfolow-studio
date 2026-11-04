@@ -1,0 +1,74 @@
+/* Estilos adicionales personalizados para la interfaz del mapa mental */
+body {
+    user-select: none;
+}
+
+.topic-dialog {
+    width: min(440px, calc(100vw - 32px));
+    margin: auto;
+    padding: 24px;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    background: #0f172a;
+    color: #f8fafc;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.topic-dialog::backdrop {
+    background: rgba(2, 6, 23, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+/* Patrón de puntos de fondo para el lienzo */
+#viewport {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* Estilo para los nodos del mapa mental */
+.mind-node {
+    position: absolute;
+    min-width: 130px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: #1e293b;
+    border: 2px solid #334155;
+    color: #f8fafc;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+    cursor: grab;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
+    z-index: 20;
+}
+
+.mind-node:active {
+    cursor: grabbing;
+}
+
+.mind-node.selected {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25), 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.mind-node.root-node {
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 22px;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    border-color: #818cf8;
+}
+
+/* Líneas de conexión SVG */
+.connection-line {
+    fill: none;
+    stroke: #475569;
+    stroke-width: 2.5px;
+    stroke-linecap: round;
+    transition: stroke 0.2s;
+}

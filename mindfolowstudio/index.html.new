@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindFlow Studio</title>
+  <link rel="stylesheet" href="mf.css">
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand"><span class="logo">◉</span> MindFlow <b>Studio</b></div>
+    <div class="grp">
+      <button id="btnUndo" title="Deshacer (Ctrl+Z)">↶</button>
+      <button id="btnRedo" title="Rehacer (Ctrl+Y)">↷</button>
+    </div>
+    <div class="grp seg" id="layoutSeg">
+      <button data-layout="map" title="Mapa mental">Mapa mental</button>
+      <button data-layout="right" title="Diagrama lógico">Lógico</button>
+      <button data-layout="org" title="Organigrama">Organigrama</button>
+    </div>
+    <label class="themepick">Tema <select id="themeSel"></select></label>
+    <div class="spacer"></div>
+    <button id="btnDrawer">✨ Generar</button>
+    <button id="btnHelp" title="Atajos de teclado">⌨ Atajos</button>
+    <button id="btnExport" class="primary">Exportar PNG</button>
+  </header>
+
+  <main>
+    <aside id="drawer">
+      <nav class="tabs" id="drawerTabs">
+        <button data-tab="gen" class="active">Generar</button>
+        <button data-tab="outline">Esquema</button>
+        <button data-tab="styles">Estilos</button>
+      </nav>
+
+      <section data-pane="gen">
+        <p class="muted">Escribe un tema, pega un texto/esquema o importa un archivo y se arma el mapa automáticamente.</p>
+        <textarea id="genText" rows="9" placeholder="Ej.: Inteligencia artificial&#10;&#10;o pega un esquema:&#10;# Marketing&#10;- SEO&#10;- Redes sociales&#10;  - Instagram"></textarea>
+        <label class="filebtn">📄 Importar archivo de texto (.txt, .md)
+          <input type="file" id="textFile" accept=".txt,.md,.markdown,.text,.csv" hidden>
+        </label>
+        <div class="row">
+          <button id="btnGenText" class="primary">✨ Generar desde texto</button>
+          <button id="btnGenTopic">📚 Guía extensa del tema</button>
+        </div>
+        <hr>
+        <label class="filebtn">🖼 Replicar un mapa desde imagen
+          <input type="file" id="imageFile" accept="image/*" hidden>
+        </label>
+        <div id="genStatus" class="muted" role="status"></div>
+      </section>
+
+      <section data-pane="outline" hidden>
+        <p class="muted">Edita el mapa como esquema. Una línea por tema; la sangría define la jerarquía. Al aplicar se reconstruye la estructura (se pierden notas y marcadores).</p>
+        <textarea id="outlineText" rows="16" spellcheck="false"></textarea>
+        <div class="row"><button id="btnApplyOutline" class="primary">Aplicar esquema</button></div>
+      </section>
+
+      <section data-pane="styles" hidden>
+        <p class="muted">Variantes visuales de tu mapa. Haz clic para aplicar.</p>
+        <div id="gallery"></div>
+      </section>
+    </aside>
+
+    <section id="stage">
+      <div id="viewport"><div id="world"></div></div>
+      <div id="sheetbar"></div>
+      <div id="zoombar">
+        <button id="zoomOut" title="Alejar">−</button>
+        <span id="zoomLabel">100%</span>
+        <button id="zoomIn" title="Acercar">+</button>
+        <button id="zoomFit" title="Ajustar a pantalla (Ctrl+0)">⤢</button>
+        <button id="btnClear" title="Borrar todo el mapa">🗑</button>
+      </div>
+    </section>
+
+    <aside id="inspector"></aside>
+  </main>
+
+  <div id="toast" role="status"></div>
+
+  <dialog id="helpDialog">
+    <h3>Atajos de teclado</h3>
+    <table>
+      <tr><td><kbd>Tab</kbd></td><td>Nuevo tema hijo</td></tr>
+      <tr><td><kbd>Enter</kbd></td><td>Nuevo tema hermano</td></tr>
+      <tr><td><kbd>F2</kbd> / doble clic / escribir</td><td>Editar texto</td></tr>
+      <tr><td><kbd>Supr</kbd> / <kbd>Retroceso</kbd></td><td>Borrar solo el tema seleccionado (sus hijos suben un nivel)</td></tr>
+      <tr><td><kbd>Espacio</kbd></td><td>Plegar / desplegar rama</td></tr>
+      <tr><td><kbd>← ↑ → ↓</kbd></td><td>Navegar entre temas</td></tr>
+      <tr><td><kbd>Alt</kbd>+<kbd>↑ ↓</kbd></td><td>Reordenar hermanos</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>C / X / V</kbd></td><td>Copiar / cortar / pegar rama</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>Z / Y</kbd></td><td>Deshacer / rehacer</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>0</kbd></td><td>Ajustar mapa a pantalla</td></tr>
+      <tr><td>Arrastrar un tema sobre otro</td><td>Moverlo como hijo de ese tema</td></tr>
+      <tr><td>Rueda del ratón</td><td>Zoom hacia el cursor</td></tr>
+      <tr><td>Arrastrar el fondo</td><td>Desplazar el lienzo</td></tr>
+    </table>
+    <form method="dialog"><button class="primary">Cerrar</button></form>
+  </dialog>
+
+  <script src="mf-util.js"></script>
+  <script src="mf-layout.js"></script>
+  <script src="mf-generate.js"></script>
+  <script src="mf-app.js"></script>
+</body>
+</html>
